@@ -5,7 +5,7 @@ current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 echo "Initiate backup => " $current_date
 
-if mongodump --quiet -h 127.0.0.1:27017 -d openhab -u admin -p moss22124113 --authenticationDatabase "admin" --gzip --archive=/home/ubuntu/backup/${BACKUP_NAME} \
+if mongodump --quiet -h 127.0.0.1:27017 -d openhab -u admin -p <PASSWORD> --authenticationDatabase "<database>" --gzip --archive=/home/ubuntu/backup/${BACKUP_NAME} \
  && aws s3 cp /home/ubuntu/backup/${BACKUP_NAME} "s3://mongobd-beeta-backend-bucket-s3" && rm /home/ubuntu/backup/${BACKUP_NAME} ;then
     echo "OK => Backup succeeded"
     echo "Initiate Db Cleanup"
