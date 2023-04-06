@@ -1,0 +1,80 @@
+openssl x509 -in mycert.crt -out mycert.pem -outform PEM
+
+
+
+Amazon Backup S2 to S3:
+
+aws s3 cp ./archive.gz "s3://mongobd-beeta-backend-bucket-s3"
+
+
+Mongo dump Command:
+
+mongodump -h 127.0.0.1:27017 -d openhab -u admin -p moss22124113 --authenticationDatabase "admin" --gzip --archive=./backup/
+
+
+Connect to Mongo:
+
+mongo --port 27017 -u "admin" -p "moss22124113" --authenticationDatabase "admin"
+
+use openhab
+
+//find measure for measureId A000013685
+db.measurevalues.find({"measureId_measureValue": "A000013685"}).pretty()
+
+
+// find measureValues greater than this date
+db.measurevalues.find({"createdAt_measureValue" : { $gt : new ISODate("2023-03-26T07:29:18.576Z") }})
+
+
+// date in iso format bash
+date -u +"%Y-%m-%dT%H:%M:%SZ"
+
+//sed 
+date -u +"%Y-%m-%dT%H:%M:%SZ" |  sed 's/\([0-9][0-9]\)\.\([0-9][0-9]\)\.\([0-9]\{4\}\)/\1\/\2\/\3/g'
+
+// grep to check iso date
+echo 2223-03-30T16:06:11Z | grep -o "[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}"nan
+
+
+db.measurevalues.deleteMany({"createdAt_measureValue" : { $lt : new ISODate(mydate) }});
+use openhab
+
+
+///////////////////////// moss.sh
+#!/bin/bash
+#current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+#echo "$current_date"
+
+#result=$(echo "$current_date" | sed s/./2/9)
+#result=$(echo "$result" | sed s/./1/10)
+
+mongo --port 27017 -u "admin" -p "moss22124113" --authenticationDatabase "admin" < script.cleanup.js
+
+
+
+ISODate()
+
+setDate
+
+
+#echo "$result"
+
+//////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
